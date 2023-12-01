@@ -1,8 +1,8 @@
 {
-    "url": "https://itssixtyn3in.github.io/Web-Payloads/swagger.yaml",
+    "url": "https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/swagger.yaml",
     "urls": [
         {
-            "url": "https://itssixtyn3in.github.io/Web-Payloads/swagger.yaml",
+            "url": "https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/swagger.yaml",
             "name": "Foo"
         }
     ]
