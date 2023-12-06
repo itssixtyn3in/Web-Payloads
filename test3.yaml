@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "v1"
-  title: You must authenticate first before you can proceed!
+  title: You must authenticate before you can proceed!
 
 host: ckrk57m2vtc0000g9pz0gjhj1uhyyyyyb.oast.fun
 
