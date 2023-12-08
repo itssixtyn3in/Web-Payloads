@@ -21,4 +21,4 @@ paths:
           type: string
       responses:
         200:
-          description: Login was successful
+          description: Login was successful!
